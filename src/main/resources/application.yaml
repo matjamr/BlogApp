@@ -1,0 +1,12 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    username: 'admin'
+    password: 'admin'
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+#TODO: create profiles: local, prod. Enable flyway, configure it, create database in file, change to validate, change path
