@@ -1,8 +1,12 @@
 package com.example.testingproject.service;
 
+import com.example.testingproject.controller.request.SaveUserRequest;
+import com.example.testingproject.controller.response.FindUserResponse;
+import com.example.testingproject.converter.UserConverter;
 import com.example.testingproject.entity.User;
 import com.example.testingproject.repository.UserRepository;
-import org.springframework.http.ResponseEntity;
+import com.example.testingproject.service.exceptions.UserAlreadyExistsException;
+import com.example.testingproject.service.exceptions.UserNotExistException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,17 +21,52 @@ import java.util.List;
 
 @Service
 public class UserService {
-    UserRepository userRepository;
+    final UserRepository userRepository;
+    final UserConverter userConverter;
 
-    public UserService(UserRepository userRepository) {
+
+    public UserService(final UserRepository userRepository, final UserConverter userConverter) {
         this.userRepository = userRepository;
+        this.userConverter = userConverter;
     }
 
-    public User save(User user) {
-        return userRepository.save(user);
+    public void save(final SaveUserRequest request) throws UserAlreadyExistsException {
+        if(userRepository.existsByEmail(request.getEmail()))
+            throw new UserAlreadyExistsException("User with given email: " + request.getEmail() + " already exists");
+        userRepository.save(userConverter.toUser(request));
     }
 
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    public FindUserResponse findUser(final String data) throws UserNotExistException {
+        // data -> email or id
+        // Checks if data is number
+        if (!data.chars().allMatch(Character::isDigit)) {
+            if(!userRepository.existsByEmail(data))
+                throw new UserNotExistException("User with email: " + data + " does not exist");
+            return userConverter.toDto(userRepository.findByEmail(data).get());
+        }
+        Integer id = Integer.parseInt(data);
+        if(!userRepository.existsById(id))
+            throw new UserNotExistException("User with id: " + id + " does not exist");
+        return userConverter.toDto(userRepository.findById(id).get());
+    }
+
+    public void delete(final String data) throws UserNotExistException {
+        User user;
+        if (!data.chars().allMatch(Character::isDigit)) {
+            if(!userRepository.existsByEmail(data))
+                throw new UserNotExistException("User with email: " + data + " does not exist");
+            user = userRepository.findByEmail(data).get();
+        } else {
+            Integer id = Integer.parseInt(data);
+            if (!userRepository.existsById(id))
+                throw new UserNotExistException("User with id: " + id + " does not exist");
+            user = userRepository.findById(id).get();
+        }
+        userRepository.delete(user);
+    }
+
 }

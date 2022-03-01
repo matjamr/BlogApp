@@ -2,11 +2,22 @@ spring:
   h2:
     console:
       enabled: true
+      path: '/database'
   datasource:
     username: 'admin'
     password: 'admin'
+    url: 'jdbc:h2:file:./database'
   jpa:
     hibernate:
-      ddl-auto: create
-
+      ddl-auto: 'validate'
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  main:
+    banner-mode: off
 #TODO: create profiles: local, prod. Enable flyway, configure it, create database in file, change to validate, change path
+server:
+  error:
+    include-stacktrace: never
+
+

@@ -1,0 +1,1 @@
+alter table post add foreign key (USER_ID) references user(id);
