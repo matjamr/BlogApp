@@ -2,7 +2,6 @@ package com.example.testingproject.controller;
 
 import com.example.testingproject.controller.request.SaveUserRequest;
 import com.example.testingproject.controller.response.FindUserResponse;
-import com.example.testingproject.entity.User;
 import com.example.testingproject.service.UserService;
 import com.example.testingproject.service.exceptions.UserAlreadyExistsException;
 import com.example.testingproject.service.exceptions.UserNotExistException;
@@ -52,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping
-    List<User> findAll() {
+    List<FindUserResponse> findAll() {
         return userService.findAll();
     }
 

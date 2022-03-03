@@ -10,6 +10,7 @@ import com.example.testingproject.service.exceptions.UserNotExistException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
     TODO
@@ -36,8 +37,10 @@ public class UserService {
         userRepository.save(userConverter.toUser(request));
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<FindUserResponse> findAll() {
+        return userRepository.findAll().stream()
+                .map(FindUserResponse::new)
+                .collect(Collectors.toList());
     }
 
     public FindUserResponse findUser(final String data) throws UserNotExistException {

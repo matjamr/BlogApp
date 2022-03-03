@@ -1,5 +1,6 @@
 package com.example.testingproject.controller;
 
+import com.example.testingproject.controller.response.FindAllPostsResponse;
 import com.example.testingproject.entity.Post;
 import com.example.testingproject.service.PostService;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class PostController {
     }
 
     @GetMapping
-    List<Post> findAll() {
+    List<FindAllPostsResponse> findAll() {
         return postService.findAll();
     }
 }

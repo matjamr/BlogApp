@@ -1,0 +1,12 @@
+POST http://localhost:8080/api/post
+Content-Type: application/json
+
+{
+  "title": "look this out!",
+  "content": "whatssss uppp boyzzzzz",
+  "user":
+    {
+      "id":"1"
+    }
+}
+###

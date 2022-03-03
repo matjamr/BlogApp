@@ -28,8 +28,9 @@ public class User {
     LocalDateTime dateOfAccountCreation;
     LocalDateTime dateOfLastLogin;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Post> posts;
+
 
     @PrePersist
     void prePersist() {
