@@ -1,4 +1,4 @@
-package com.example.testingproject.controller.request;
+package com.example.testingproject.controller.request.UserRequest;
 
 import lombok.Data;
 

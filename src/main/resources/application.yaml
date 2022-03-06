@@ -15,7 +15,7 @@ spring:
     baseline-on-migrate: true
   main:
     banner-mode: off
-#TODO: create profiles: local, prod. Enable flyway, configure it, create database in file, change to validate, change path
+#TODO: create profiles: local, prod
 server:
   error:
     include-stacktrace: never

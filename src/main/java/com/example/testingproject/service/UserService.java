@@ -1,24 +1,20 @@
 package com.example.testingproject.service;
 
-import com.example.testingproject.controller.request.SaveUserRequest;
-import com.example.testingproject.controller.response.FindUserResponse;
+import com.example.testingproject.controller.request.UserRequest.SaveUserRequest;
+import com.example.testingproject.controller.request.UserRequest.UpdateEmailRequest;
+import com.example.testingproject.controller.request.UserRequest.UpdateUserRequest;
+import com.example.testingproject.controller.response.PostResponse.FindUserResponse;
 import com.example.testingproject.converter.UserConverter;
 import com.example.testingproject.entity.User;
 import com.example.testingproject.repository.UserRepository;
-import com.example.testingproject.service.exceptions.UserAlreadyExistsException;
-import com.example.testingproject.service.exceptions.UserNotExistException;
+import com.example.testingproject.service.exceptions.UserExceptions.EmailAlreadyTakenException;
+import com.example.testingproject.service.exceptions.UserExceptions.UserAlreadyExistsException;
+import com.example.testingproject.service.exceptions.UserExceptions.UserNotExistException;
+import com.example.testingproject.service.exceptions.UserExceptions.UserWithGivenEmailNotExist;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-/*
-    TODO
-     create interface for service and implement it here
-     create methods for other types of requests
-     create exceptions and their handling
-     check whether it is better to use response entity / entity itself
- */
 
 @Service
 public class UserService {
@@ -72,4 +68,24 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    public void update(final UpdateUserRequest newUser) throws UserWithGivenEmailNotExist {
+        if(!userRepository.existsByEmail(newUser.getEmail())) {
+            throw new UserWithGivenEmailNotExist("There is no user with email: " + " email");
+        }
+
+        User user = userRepository.findByEmail(newUser.getEmail()).get();
+        user.setName(newUser.getName());
+        user.setSurname(newUser.getSurname());
+        user.setDescription(newUser.getDescription());
+        userRepository.save(user);
+    }
+
+    public void updateEmail(final UpdateEmailRequest emailRequest, final Integer id) throws EmailAlreadyTakenException {
+        if(userRepository.existsByEmail(emailRequest.getEmail())) {
+            throw new EmailAlreadyTakenException("Email is already in use!");
+        }
+        User user = userRepository.findById(id).get();
+        user.setEmail(user.getEmail());
+        userRepository.save(user);
+    }
 }

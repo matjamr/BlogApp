@@ -1,4 +1,4 @@
-package com.example.testingproject.service.exceptions;
+package com.example.testingproject.service.exceptions.UserExceptions;
 
 public class UserAlreadyExistsException extends Exception{
     public UserAlreadyExistsException(String message) {

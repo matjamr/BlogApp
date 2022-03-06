@@ -1,7 +1,8 @@
 package com.example.testingproject.converter;
 
-import com.example.testingproject.controller.request.SaveUserRequest;
-import com.example.testingproject.controller.response.FindUserResponse;
+import com.example.testingproject.controller.request.UserRequest.SaveUserRequest;
+import com.example.testingproject.controller.request.UserRequest.UpdateUserRequest;
+import com.example.testingproject.controller.response.PostResponse.FindUserResponse;
 import com.example.testingproject.entity.User;
 import org.springframework.stereotype.Component;
 
@@ -26,4 +27,14 @@ public class UserConverter {
         response.setDate(user.getDateOfAccountCreation());
         return response;
     }
+
+    public User toUser(final UpdateUserRequest user) {
+        final User newUser = new User();
+        user.setName(newUser.getName());
+        user.setSurname(newUser.getSurname());
+        user.setDescription(newUser.getDescription());
+
+        return newUser;
+    }
+
 }
