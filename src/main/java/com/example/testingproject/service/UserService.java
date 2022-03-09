@@ -3,7 +3,7 @@ package com.example.testingproject.service;
 import com.example.testingproject.controller.request.UserRequest.SaveUserRequest;
 import com.example.testingproject.controller.request.UserRequest.UpdateEmailRequest;
 import com.example.testingproject.controller.request.UserRequest.UpdateUserRequest;
-import com.example.testingproject.controller.response.PostResponse.FindUserResponse;
+import com.example.testingproject.controller.response.UserResponse.FindUserResponse;
 import com.example.testingproject.converter.UserConverter;
 import com.example.testingproject.entity.User;
 import com.example.testingproject.repository.UserRepository;
@@ -38,6 +38,7 @@ public class UserService {
                 .map(FindUserResponse::new)
                 .collect(Collectors.toList());
     }
+
 
     public FindUserResponse findUser(final String data) throws UserNotExistException {
         // data -> email or id

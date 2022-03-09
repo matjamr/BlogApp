@@ -2,7 +2,7 @@ package com.example.testingproject.converter;
 
 import com.example.testingproject.controller.request.UserRequest.SaveUserRequest;
 import com.example.testingproject.controller.request.UserRequest.UpdateUserRequest;
-import com.example.testingproject.controller.response.PostResponse.FindUserResponse;
+import com.example.testingproject.controller.response.UserResponse.FindUserResponse;
 import com.example.testingproject.entity.User;
 import org.springframework.stereotype.Component;
 

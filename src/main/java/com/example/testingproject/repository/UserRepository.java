@@ -5,10 +5,6 @@ import com.example.testingproject.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-/*
-TODO
- create new methods
- */
 
 public interface UserRepository {
 

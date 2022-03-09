@@ -1,11 +1,9 @@
-package com.example.testingproject.controller.response.PostResponse;
+package com.example.testingproject.controller.response.UserResponse;
 
 import com.example.testingproject.entity.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class FindUserResponse {

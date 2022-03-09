@@ -1,4 +1,4 @@
-package com.example.testingproject.controller.response.PostResponse;
+package com.example.testingproject.controller.response.UserResponse;
 
 import com.example.testingproject.entity.User;
 import lombok.Data;

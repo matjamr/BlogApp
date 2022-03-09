@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,4 +21,9 @@ public class Post {
     @ManyToOne()
     @JoinColumn(name = "user_id")
     User user;
+
+    @OneToMany(mappedBy = "post")
+    List<Comment> comments;
+
+
 }

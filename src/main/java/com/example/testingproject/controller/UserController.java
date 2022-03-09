@@ -3,7 +3,7 @@ package com.example.testingproject.controller;
 import com.example.testingproject.controller.request.UserRequest.SaveUserRequest;
 import com.example.testingproject.controller.request.UserRequest.UpdateEmailRequest;
 import com.example.testingproject.controller.request.UserRequest.UpdateUserRequest;
-import com.example.testingproject.controller.response.PostResponse.FindUserResponse;
+import com.example.testingproject.controller.response.UserResponse.FindUserResponse;
 import com.example.testingproject.service.UserService;
 import com.example.testingproject.service.exceptions.UserExceptions.EmailAlreadyTakenException;
 import com.example.testingproject.service.exceptions.UserExceptions.UserAlreadyExistsException;
@@ -15,12 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
-
-/*
-    TODO
-     create methods for deleting, patch, put
-*/
-
 
 @RestController
 @RequestMapping(path="/api/user")

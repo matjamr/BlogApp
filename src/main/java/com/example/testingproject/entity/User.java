@@ -31,6 +31,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<Post> posts;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    List<Comment> comments;
+
 
     @PrePersist
     void prePersist() {

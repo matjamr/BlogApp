@@ -1,0 +1,9 @@
+PUT http://localhost:8080/api/post/comment
+Content-Type: application/json
+
+{
+  "id": 2,
+  "content": "New comment burh"
+}
+
+###

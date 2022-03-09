@@ -1,0 +1,4 @@
+DELETE http://localhost:8080/api/post/comment/1
+Accept: application/json
+
+###

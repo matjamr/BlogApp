@@ -1,0 +1,14 @@
+POST http://localhost:8080/api/post/comment
+Content-Type: application/json
+
+{
+  "content": "first comment",
+  "post" : {
+    "id": 12
+  },
+  "user": {
+    "id": 6
+  }
+}
+
+###

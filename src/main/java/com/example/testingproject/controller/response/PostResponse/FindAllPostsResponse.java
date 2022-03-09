@@ -1,6 +1,6 @@
-package com.example.testingproject.controller.response.UserResponse;
+package com.example.testingproject.controller.response.PostResponse;
 
-import com.example.testingproject.controller.response.PostResponse.UserResponse;
+import com.example.testingproject.controller.response.UserResponse.UserResponse;
 import com.example.testingproject.entity.Post;
 import lombok.Data;
 
