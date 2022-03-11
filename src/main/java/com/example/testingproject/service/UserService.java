@@ -33,13 +33,14 @@ public class UserService {
         userRepository.save(userConverter.toUser(request));
     }
 
+
     public List<FindUserResponse> findAll() {
         return userRepository.findAll().stream()
                 .map(FindUserResponse::new)
                 .collect(Collectors.toList());
     }
 
-
+    // test
     public FindUserResponse findUser(final String data) throws UserNotExistException {
         // data -> email or id
         // Checks if data is number

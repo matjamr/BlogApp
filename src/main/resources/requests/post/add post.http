@@ -2,8 +2,8 @@ POST http://localhost:8080/api/post
 Content-Type: application/json
 
 {
-  "title" : "new post",
-  "content": "here is some funky content",
+  "title" : "new padasdasostaaa",
+  "content": "here is some funky content asda asdwzo",
   "user": {
     "id": 6
   }

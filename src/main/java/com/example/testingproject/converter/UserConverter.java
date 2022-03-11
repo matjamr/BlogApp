@@ -37,4 +37,13 @@ public class UserConverter {
         return newUser;
     }
 
+    public User toUser(FindUserResponse userResponse) {
+        final User user = new User();
+        user.setName(userResponse.getName());
+        user.setSurname(userResponse.getSurname());
+        user.setEmail(userResponse.getEmail());
+        user.setDescription(userResponse.getDescription());
+        user.setDateOfAccountCreation(userResponse.getDate());
+        return user;
+    }
 }
