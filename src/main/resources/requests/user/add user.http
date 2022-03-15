@@ -1,12 +1,9 @@
-POST http://localhost:8080/api/post
+POST http://localhost:8080/api/user
 Content-Type: application/json
 
 {
-  "title": "look this out!",
-  "content": "whatssss uppp boyzzzzz",
-  "user":
-    {
-      "id":"1"
-    }
+  "name": "imie",
+  "surname": "nazwisko",
+  "email": "aaa"
 }
 ###

@@ -9,7 +9,7 @@ import com.example.testingproject.entity.User;
 import com.example.testingproject.repository.UserRepository;
 import com.example.testingproject.service.exceptions.UserExceptions.EmailAlreadyTakenException;
 import com.example.testingproject.service.exceptions.UserExceptions.UserAlreadyExistsException;
-import com.example.testingproject.service.exceptions.UserExceptions.UserNotExistException;
+import com.example.testingproject.service.exceptions.UserExceptions.NoUserException;
 import com.example.testingproject.service.exceptions.UserExceptions.UserWithGivenEmailNotExist;
 import org.springframework.stereotype.Service;
 
@@ -33,42 +33,41 @@ public class UserService {
         userRepository.save(userConverter.toUser(request));
     }
 
-
     public List<FindUserResponse> findAll() {
         return userRepository.findAll().stream()
                 .map(FindUserResponse::new)
                 .collect(Collectors.toList());
     }
 
-    // test
-    public FindUserResponse findUser(final String data) throws UserNotExistException {
+    public FindUserResponse findUser(final String data) throws NoUserException {
         // data -> email or id
         // Checks if data is number
         if (!data.chars().allMatch(Character::isDigit)) {
             if(!userRepository.existsByEmail(data))
-                throw new UserNotExistException("User with email: " + data + " does not exist");
+                throw new NoUserException("User with email: " + data + " does not exist");
             return userConverter.toDto(userRepository.findByEmail(data).get());
         }
         Integer id = Integer.parseInt(data);
         if(!userRepository.existsById(id))
-            throw new UserNotExistException("User with id: " + id + " does not exist");
+            throw new NoUserException("User with id: " + id + " does not exist");
         return userConverter.toDto(userRepository.findById(id).get());
     }
 
-    public void delete(final String data) throws UserNotExistException {
+    public void delete(final String data) throws NoUserException {
         User user;
         if (!data.chars().allMatch(Character::isDigit)) {
             if(!userRepository.existsByEmail(data))
-                throw new UserNotExistException("User with email: " + data + " does not exist");
+                throw new NoUserException("User with email: " + data + " does not exist");
             user = userRepository.findByEmail(data).get();
         } else {
             Integer id = Integer.parseInt(data);
             if (!userRepository.existsById(id))
-                throw new UserNotExistException("User with id: " + id + " does not exist");
+                throw new NoUserException("User with id: " + id + " does not exist");
             user = userRepository.findById(id).get();
         }
         userRepository.delete(user);
     }
+
 
     public void update(final UpdateUserRequest newUser) throws UserWithGivenEmailNotExist {
         if(!userRepository.existsByEmail(newUser.getEmail())) {
@@ -76,12 +75,11 @@ public class UserService {
         }
 
         User user = userRepository.findByEmail(newUser.getEmail()).get();
-        user.setName(newUser.getName());
-        user.setSurname(newUser.getSurname());
-        user.setDescription(newUser.getDescription());
-        userRepository.save(user);
+
+        userRepository.save(userConverter.toUser(newUser, user));
     }
 
+    // test
     public void updateEmail(final UpdateEmailRequest emailRequest, final Integer id) throws EmailAlreadyTakenException {
         if(userRepository.existsByEmail(emailRequest.getEmail())) {
             throw new EmailAlreadyTakenException("Email is already in use!");

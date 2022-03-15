@@ -7,7 +7,7 @@ import com.example.testingproject.controller.response.UserResponse.FindUserRespo
 import com.example.testingproject.service.UserService;
 import com.example.testingproject.service.exceptions.UserExceptions.EmailAlreadyTakenException;
 import com.example.testingproject.service.exceptions.UserExceptions.UserAlreadyExistsException;
-import com.example.testingproject.service.exceptions.UserExceptions.UserNotExistException;
+import com.example.testingproject.service.exceptions.UserExceptions.NoUserException;
 import com.example.testingproject.service.exceptions.UserExceptions.UserWithGivenEmailNotExist;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class UserController {
     FindUserResponse findUser(@PathVariable String data){
         try {
             return userService.findUser(data);
-        } catch(UserNotExistException e) {
+        } catch(NoUserException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User not found", e
             );
@@ -57,7 +57,7 @@ public class UserController {
     void delete (@PathVariable String data){
         try {
             userService.delete(data);
-        } catch(UserNotExistException e) {
+        } catch(NoUserException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User not found", e
             );

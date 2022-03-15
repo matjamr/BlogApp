@@ -46,4 +46,11 @@ public class UserConverter {
         user.setDateOfAccountCreation(userResponse.getDate());
         return user;
     }
+
+    public User toUser(UpdateUserRequest userResponse, User user) {
+        user.setName(userResponse.getName());
+        user.setSurname(userResponse.getSurname());
+        user.setDescription(userResponse.getDescription());
+        return user;
+    }
 }
